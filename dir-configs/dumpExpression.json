@@ -1,0 +1,27 @@
+{
+  "goneOn": {
+    "$eq": ""
+  },
+  "inputIsRegressionExcluded": {
+    "$eq": ""
+  },
+  "predictedPrice": {
+    "$ne": null
+  },
+  "address": {
+    "$regex": "DE-(\\d{5})"
+  },
+  "plz": {
+    "$regex": "^8"
+  },
+  "priceEur": {
+    "$lte": 15000
+  },
+  "$or": [
+    {
+      "makeModel": {
+        "$regex": "Sprinter|Master|Crafter|Boxer|Jumper|Ducato"
+      }
+    }
+  ]
+}

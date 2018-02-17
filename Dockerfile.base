@@ -1,0 +1,6 @@
+FROM python
+
+RUN pip3 install pymongo python-dotenv matplotlib prompt-toolkit scipy plotly sklearn datetime pandas numpy
+RUN pip3 install bs4 html5lib
+RUN apt update; apt -y install vim
+

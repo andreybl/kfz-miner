@@ -35,3 +35,26 @@ db.createCollection("mobiledeCopy")
 
 * clean log output to the console
 
+# Docker
+#
+# execute the scraper cli. Run both scraper and db. Db container is NOT removed after exit,
+# but the scraper is removed.
+#
+docker-compose run --rm kfzscraper
+
+
+
+# build base image, takes time
+docker build -t agofm/pybase --file ./Dockerfile.base .
+
+# build image with script, fast
+docker build -t agofm/simple .
+
+# the kfzscraper image is "bash"
+#docker-compose run --entrypoint bash kfzscraper
+
+# connect to running image, the sdtin_open, tty must be set in yml
+docker run --rm -t -i  agofm/simple /bin/bash
+
+# exec in running container interactively
+# docker exec -it kfzminer_kfzscraper_run_1 /bin/bash

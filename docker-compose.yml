@@ -1,0 +1,46 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+# ---------------
+# ..., used by all our services
+# ---------------
+  mongodb:
+    hostname: mongodb
+    labels:
+      name: "mongodb"
+    image: mongo
+    ports:
+      - "7017:27017"
+    networks:
+      - app-tier
+    command: mongod
+
+# ---------------
+# kfz scraper
+# ---------------
+  kfzscraper:
+    labels:
+      name: "kfzscraper"
+    image: agofm/simple
+    volumes:
+      - ./dir-configs:/dir-configs
+      - ./dir-data:/dir-data
+    environment:
+      - mongodb-hostname=mongodb
+#### use to attach to running container
+#    stdin_open: true
+#    tty: true # if only this line: crashes
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    networks:
+      - app-tier
+#
+#volumes:
+#  dirconfig:
+#    driver: "local"
